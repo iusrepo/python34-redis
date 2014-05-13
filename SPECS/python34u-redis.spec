@@ -1,51 +1,56 @@
+%global pymajor 3
+%global pyminor 4
+%global pyver %{pymajor}.%{pyminor}
+%global iusver %{pymajor}%{pyminor}u
+%global __python3 %{_bindir}/python%{pyver}
+%global python3_sitelib  %(%{__python3} -c "from distutils.sysconfig import get_python_lib; print(get_python_lib())")
+%global python3_sitearch %(%{__python3} -c "from distutils.sysconfig import get_python_lib; print(get_python_lib(1))")
+%global srcname redis
 
-%define pybasever 3.3
-%define pyver 33
-
-%define upstream_name redis
-
-%define name python%{pyver}-%{upstream_name}
-%define __python /usr/bin/python%{pybasever}
-
-%{!?python_sitelib: %define python_sitelib %(%{__python} -c "from distutils.sysconfig import get_python_lib; print(get_python_lib())")}
-
-Name:           %{name}
+Name:           python%{iusver}-%{srcname}
 Version:        2.9.1
 Release:        1.ius%{?dist}
-Summary:        A Python client for redis
-
+Summary:        Python client for Redis key-value store
+Vendor:         IUS Community Project
 Group:          Development/Languages
 License:        MIT
-URL:		http://github.com/andymccurdy/redis-py
-Source0:	https://pypi.python.org/packages/source/r/redis/%{upstream_name}-%{version}.tar.gz
-BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
-
+URL:		https://github.com/andymccurdy/redis-py
+Source0:        https://pypi.python.org/packages/source/s/%{srcname}/%{srcname}-%{version}.tar.gz
 BuildArch:      noarch
-BuildRequires:  python%{pyver}-devel
+BuildRequires:  python%{iusver}-devel
+Requires:       python%{iusver}
+
 
 %description
-This is a Python interface to the Redis key-value store.
+The Python interface to the Redis key-value store.
+
 
 %prep
-%setup -q -n %{upstream_name}-%{version}
+%setup -q -n %{srcname}-%{version}
+
 
 %build
-%{__python} setup.py build
+%{__python3} setup.py build
+
 
 %install
-rm -rf %{buildroot}
-%{__python} setup.py install -O1 --skip-build --root %{buildroot}
+%{__python3} setup.py install --optimize 1 --skip-build --root %{buildroot}
+
 
 %clean
 rm -rf %{buildroot}
 
+
 %files
 %defattr(-,root,root,-)
 %doc CHANGES LICENSE
-%{python_sitelib}/%{upstream_name}
-%{python_sitelib}/%{upstream_name}-%{version}-*.egg-info
+%{python3_sitelib}/*
+
 
 %changelog
+* Tue May 13 2014 Carl George <carl.george@rackspace.com> - 2.9.1-1.ius
+- Initial port from python33-redis
+
 * Fri Jan 24 2014 Ben Harper <ben.harper@rackspace.com> - 2.9.1-1.ius
 - Latest sources from upstream
 
