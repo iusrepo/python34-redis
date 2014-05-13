@@ -15,7 +15,7 @@ Vendor:         IUS Community Project
 Group:          Development/Languages
 License:        MIT
 URL:		https://github.com/andymccurdy/redis-py
-Source0:        https://pypi.python.org/packages/source/s/%{srcname}/%{srcname}-%{version}.tar.gz
+Source0:        https://pypi.python.org/packages/source/r/%{srcname}/%{srcname}-%{version}.tar.gz
 BuildArch:      noarch
 BuildRequires:  python%{iusver}-devel
 Requires:       python%{iusver}
