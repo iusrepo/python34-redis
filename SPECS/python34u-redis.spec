@@ -14,7 +14,7 @@ Summary:        Python client for Redis key-value store
 Vendor:         IUS Community Project
 Group:          Development/Languages
 License:        MIT
-URL:		https://github.com/andymccurdy/redis-py
+URL:            https://github.com/andymccurdy/redis-py
 Source0:        https://pypi.python.org/packages/source/r/%{srcname}/%{srcname}-%{version}.tar.gz
 BuildArch:      noarch
 BuildRequires:  python%{iusver}-devel
