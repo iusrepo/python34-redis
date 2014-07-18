@@ -8,7 +8,7 @@
 %global srcname redis
 
 Name:           python%{iusver}-%{srcname}
-Version:        2.9.1
+Version:        2.10.1
 Release:        1.ius%{?dist}
 Summary:        Python client for Redis key-value store
 Vendor:         IUS Community Project
@@ -48,6 +48,9 @@ rm -rf %{buildroot}
 
 
 %changelog
+* Fri Jul 18 2014 Ben Harper <ben.harper@rackspace.com> - 2.10.1-1.ius
+- Latest sources from upstream
+
 * Tue May 13 2014 Carl George <carl.george@rackspace.com> - 2.9.1-1.ius
 - Initial port from python33-redis
 
