@@ -8,14 +8,14 @@
 %global srcname redis
 
 Name:           python%{iusver}-%{srcname}
-Version:        2.10.5
+Version:        2.10.6
 Release:        1.ius%{?dist}
 Summary:        Python client for Redis key-value store
 Vendor:         IUS Community Project
 Group:          Development/Languages
 License:        MIT
 URL:            https://github.com/andymccurdy/redis-py
-Source0:        https://pypi.python.org/packages/source/r/%{srcname}/%{srcname}-%{version}.tar.gz
+Source0:        https://pypi.io/packages/source/r/redis/%{srcname}-%{version}.tar.gz
 BuildArch:      noarch
 BuildRequires:  python%{iusver}-devel
 Requires:       python%{iusver}
@@ -43,11 +43,16 @@ rm -rf %{buildroot}
 
 %files
 %defattr(-,root,root,-)
-%doc CHANGES LICENSE
+%doc CHANGES
+%license LICENSE
 %{python3_sitelib}/*
 
 
 %changelog
+* Thu Aug 17 2017 Ben Harper <ben.harper@rackspace.com> - 2.10.6-1.ius
+- Latest upstream
+- update Source0
+
 * Wed Nov 04 2015 Carl George <carl.george@rackspace.com> - 2.10.5-1.ius
 - Latest upstream
 
