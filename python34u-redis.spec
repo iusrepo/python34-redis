@@ -9,9 +9,8 @@
 
 Name:           python%{iusver}-%{srcname}
 Version:        2.10.6
-Release:        1.ius%{?dist}
+Release:        1%{?dist}
 Summary:        Python client for Redis key-value store
-Vendor:         IUS Community Project
 Group:          Development/Languages
 License:        MIT
 URL:            https://github.com/andymccurdy/redis-py
