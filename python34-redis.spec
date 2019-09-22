@@ -1,22 +1,20 @@
-%global pymajor 3
-%global pyminor 4
-%global pyver %{pymajor}.%{pyminor}
-%global __python3 %{_bindir}/python%{pyver}
-%global python3_sitelib  %(%{__python3} -c "from distutils.sysconfig import get_python_lib; print(get_python_lib())")
-%global python3_sitearch %(%{__python3} -c "from distutils.sysconfig import get_python_lib; print(get_python_lib(1))")
 %global srcname redis
+
+%if %{undefined el6}
+%global __python3 /usr/bin/python3.4
+%endif
 
 Name:           python34-%{srcname}
 Version:        2.10.6
 Release:        2%{?dist}
 Summary:        Python client for Redis key-value store
-Group:          Development/Languages
 License:        MIT
 URL:            https://github.com/andymccurdy/redis-py
-Source0:        https://pypi.io/packages/source/r/redis/%{srcname}-%{version}.tar.gz
+Source0:        %pypi_source
 BuildArch:      noarch
+BuildRequires:  python3-rpm-macros
 BuildRequires:  python34-devel
-Requires:       python34
+BuildRequires:  python34-setuptools
 
 # Rename from python34u-redis
 Provides:       python34u-%{srcname} = %{version}-%{release}
@@ -29,30 +27,28 @@ The Python interface to the Redis key-value store.
 
 %prep
 %setup -q -n %{srcname}-%{version}
+rm -rf %{srcname}.egg-info
 
 
 %build
-%{__python3} setup.py build
+%py3_build
 
 
 %install
-%{__python3} setup.py install --optimize 1 --skip-build --root %{buildroot}
-
-
-%clean
-rm -rf %{buildroot}
+%py3_install
 
 
 %files
-%defattr(-,root,root,-)
-%doc CHANGES
 %license LICENSE
-%{python3_sitelib}/*
+%doc CHANGES README.rst
+%{python3_sitelib}/%{srcname}
+%{python3_sitelib}/%{srcname}-%{version}-py%{python3_version}.egg-info
 
 
 %changelog
 * Sun Sep 22 2019 Carl George <carl@george.computer> - 2.10.6-2
 - Rename to python34-redis
+- Switch to EPEL python3 macros
 
 * Thu Aug 17 2017 Ben Harper <ben.harper@rackspace.com> - 2.10.6-1.ius
 - Latest upstream
